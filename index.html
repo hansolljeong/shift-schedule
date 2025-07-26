@@ -88,13 +88,15 @@
       const calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
         initialView: 'dayGridMonth',
         initialDate: today,
-        locale: 'ko',
+        locale: 'en',
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
           right: '',
         },
         events: generateEvents(start, end),
+        height: 600,         // 추가
+        aspectRatio: 0.7,
       });
 
       calendar.render();
