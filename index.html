@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>친구의 주야비휴 스케줄</title>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+    }
+    #calendar {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align:center;">주야비휴 근무 스케줄</h1>
+  <div id="calendar"></div>
+
+  <script>
+    const baseDate = new Date('2025-07-26');
+    const baseType = 0;
+    const dutyTypes = ['주간', '야간', '비번', '휴무'];
+    const dutyColors = ['#facc15', '#3b82f6', '#a78bfa', '#9ca3af'];
+
+    function getDutyType(date) {
+      const diff = Math.floor((date - baseDate) / (1000 * 60 * 60 * 24));
+      const index = (baseType + diff % 4 + 4) % 4;
+      return { type: dutyTypes[index], color: dutyColors[index] };
+    }
+
+    function generateEvents(startDate, endDate) {
+      const events = [];
+      let current = new Date(startDate);
+
+      while (current <= endDate) {
+        const iso = current.toISOString().split('T')[0];
+        const { type, color } = getDutyType(current);
+        events.push({
+          title: type,
+          start: iso,
+          allDay: true,
+          backgroundColor: color,
+          borderColor: color,
+        });
+        current.setDate(current.getDate() + 1);
+      }
+      return events;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const today = new Date();
+      const start = new Date(today.getFullYear(), today.getMonth(), 1);
+      const end = new Date(today.getFullYear(), today.getMonth() + 3, 0);
+
+      const calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
+        initialView: 'dayGridMonth',
+        initialDate: today,
+        locale: 'ko',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: '',
+        },
+        events: generateEvents(start, end),
+      });
+
+      calendar.render();
+    });
+  </script>
+</body>
+</html>
