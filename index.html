@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>친구의 주야비휴 스케줄</title>
+  <title>양재순 주야비휴 스케줄</title>
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
   <style>
@@ -17,14 +17,14 @@
   </style>
 </head>
 <body>
-  <h1 style="text-align:center;">주야비휴 근무 스케줄</h1>
+  <h1 style="text-align:center;">양재순 주야비휴 근무 스케줄</h1>
   <div id="calendar"></div>
 
   <script>
     const baseDate = new Date('2025-07-26');
     const baseType = 0;
     const dutyTypes = ['주간', '야간', '비번', '휴무'];
-    const dutyColors = ['#facc15', '#3b82f6', '#a78bfa', '#9ca3af'];
+    const dutyColors = ['#2563eb', '#1e40af', '#f97316', '#64748b'];
 
     function getDutyType(date) {
       const diff = Math.floor((date - baseDate) / (1000 * 60 * 60 * 24));
